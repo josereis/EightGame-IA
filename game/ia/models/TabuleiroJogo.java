@@ -95,24 +95,6 @@ public class TabuleiroJogo {
 		this.estaAbero = estaAbero;
 	}
 
-	public TabuleiroJogo() {
-		this.pecas = new LinkedList<Peca>();
-
-		Collections.sort(this.pecas, new Comparator<Peca>() {
-
-			@Override
-			public int compare(Peca p1, Peca p2) {
-				if (p1.getPosicao() > p2.getPosicao()) {
-					return 1;
-				} else if (p1.getPosicao() < p2.getPosicao()) {
-					return -1;
-				} else {
-					return 0;
-				}
-			}
-		});
-	}
-
 	/**
 	 * Solucao:
 	 * 
@@ -236,6 +218,7 @@ public class TabuleiroJogo {
 				&& (peca.getColuna() == pecavazia.getColuna() - 1 || peca.getColuna() == pecavazia.getColuna() + 1))
 				|| ((peca.getLinha() == pecavazia.getLinha() - 1 || peca.getLinha() == pecavazia.getLinha() + 1)
 						&& peca.getColuna() == pecavazia.getColuna())) {
+			
 			// atualiza as posicoes das pecas no tabuleiro
 			atualizaPosicaoPeca(peca);
 
@@ -391,7 +374,26 @@ public class TabuleiroJogo {
 			}
 
 		});
+		
 		return pecas;
+	}
+	
+	public TabuleiroJogo() {
+		this.pecas = new LinkedList<Peca>();
+
+		Collections.sort(this.pecas, new Comparator<Peca>() {
+
+			@Override
+			public int compare(Peca p1, Peca p2) {
+				if (p1.getPosicao() > p2.getPosicao()) {
+					return 1;
+				} else if (p1.getPosicao() < p2.getPosicao()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
 	}
 
 	/**
@@ -402,6 +404,7 @@ public class TabuleiroJogo {
 	 * @param pai
 	 */
 	public TabuleiroJogo(List<Peca> pecas, Peca pecaVazia, Integer nivel, TabuleiroJogo pai) {
+		super();
 		this.pai = pai;
 		this.nivel = nivel;
 		this.pecas = pecas;

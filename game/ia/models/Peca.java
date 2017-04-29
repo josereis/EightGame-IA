@@ -173,10 +173,11 @@ public class Peca {
 	 * @param linha
 	 * @param coluna
 	 */
-	public Peca(int numero, int linha, int coluna) {
+	public Peca(Integer numero, Integer linha, Integer coluna) {
 		this.numero = numero;
 		this.coluna = coluna;
 		this.linha = linha;
+		setPosicao(linha, coluna);
 	}
 
 }
