@@ -2,21 +2,17 @@ package game.ia.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import game.ia.algoritmos.BuscaProfundidade;
+import game.ia.algoritmos.AStar;
 import game.ia.models.Peca;
 import game.ia.models.TabuleiroJogo;
 
-public class BuscaProfundidadeTest {
-	private Integer passos;
+public class AStarTest {
+
+	private AStar aStar;
 	private TabuleiroJogo tabuleiroInicial;
-	private List<TabuleiroJogo> listaSolucoes;
-	private BuscaProfundidade buscaProfundidade;
 	
 	/**
 	 * Cria o tabuleiro para teste
@@ -50,39 +46,23 @@ public class BuscaProfundidadeTest {
 		return temporario;
 	}
 	
-//	@Before
+	@Before
 	public void setUp() {
+		aStar = new AStar();
 		tabuleiroInicial = criaTabuleiroTeste();
-		
-		// determina a profundidade maxima em 50 niveis
-		buscaProfundidade = new BuscaProfundidade(50);
-		
-		listaSolucoes = new LinkedList<TabuleiroJogo>();
 	}
 	
 	@Test
-	public void test() {
-		setUp();
-		
-		System.out.println("Tabuleiro Inicial (Busca em Profundidade):");
-		// imprimi o tabuleiro inicial
+	public void testAStar() {
+		System.out.println("Tabuleiro Inicial (A*):");
 		tabuleiroInicial.printMatriz();
+		System.out.println("\n");
 		
-		buscaProfundidade.primeraPesquisaProfundidade(tabuleiroInicial);
-		listaSolucoes.addAll(buscaProfundidade.getMovimentos());
-		
-		passos = buscaProfundidade.getPassos();
-		
-		//
-		System.out.println("\n\nSolução(Passos: " + passos + "):");
-		for(int i = listaSolucoes.size() - 1; i >= 0; i--) {
-			listaSolucoes.get(i).printMatriz();
+		aStar.pesquisarEstrela(tabuleiroInicial);
+		System.out.println("Solução (passos: " + aStar.getPassos() + ") ->");
+		for(int i = aStar.getListaSolucao().size() - 1; i >= 0; i--) {
+			aStar.getListaSolucao().get(i).printMatriz();
 			System.out.println("\n");
-		}
-		
-		assertEquals(new Integer(14), passos);
-		if(!listaSolucoes.get(0).solucao()) {
-			fail("Não encontrou uma solução!");
 		}
 	}
 
